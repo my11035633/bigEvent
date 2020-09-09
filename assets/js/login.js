@@ -29,20 +29,24 @@ window.layui.form.verify({
 //注册请求
 $(function () {
     $('#zhuce').click(function () {
-        // console.log(1);
-        var $username = $('.regist #name2').val();
+        console.log($('.regist #form'));
+        var formData = new FormData($('.regist #form')[0]);
+        console.log(formData.get('username'));
+        console.log(formData.get('password'));
+        // var $username = $('.regist #name2').val();
         // console.log($username);
-        var $password = $('.regist #password').val();
+        // var $password = $('.regist #password').val();
         // console.log($password);
         $.ajax({
             type: 'post',
             url: 'http://ajax.frontend.itheima.net/api/reguser',
             data: {
-                username: $username,
-                password: $password
+                username: formData.get('username'),
+                password: formData.get('password')
             },
             success: function (data) {
-                if (data.status === 1) {
+                console.log(data);
+                if (data.status === 0) {
                     layer.open({
                         title: '',
                         content: data.message
