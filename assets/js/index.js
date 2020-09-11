@@ -1,24 +1,33 @@
 $(function () {
-    $.ajax({
-        type: 'get',
-        url: '/my/userinfo',
-        headers: {
-            Authorization: window.localStorage.getItem('token')
-        },
-        success: function (res) {
-            console.log(res);
-            var value = res.data.username[0].toUpperCase();
-            if (res.data.user_pic === null) {
-                // console.log(value);
-                $('.text-avatar').text(value).show();
-                $('#welcome').text('欢迎' + res.data.username);
-                $('#welcome2').text('欢迎' + res.data.username);
-            } else {
-                $('.text-avatar').hide();
-                $('.layui-nav-img').attr('src', res.data.user_pic).css('display', 'block');
-            }
-        }
-    })
+
+    fa();
+
+    function fa() {
+        $.ajax({
+            type: 'get',
+            url: '/my/userinfo',
+            success: function (res) {
+                console.log(res);
+                if (res.data) {
+                    var value = res.data.username[0].toUpperCase();
+                    var value2 = res.data.nickname || res.data.username;
+                    if (res.data.user_pic === null) {
+                        // console.log(value);
+                        $('.text-avatar').text(value).show();
+                        // $('#welcome').text('欢迎' + value);
+                        $('#welcome2').text('欢迎' + value2);
+                    } else {
+                        $('.text-avatar').hide();
+                        $('.layui-nav-img').attr('src', res.data.user_pic).css('display', 'block');
+                    }
+                }
+
+            },
+        })
+    }
+
+    window.fa = fa;
+
 
 
 

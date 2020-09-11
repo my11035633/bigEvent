@@ -11,8 +11,20 @@ $(function () {
     })
 
 
-
-    $('#zhuce').click(function () {
+    //验证输入框以及ajax的发送
+    window.layui.form.verify({
+        password: [/^[\S]{6,12}$/, '密码必须在6到8位数字'],
+        repass: function (value) {
+            var $pass_value = $('.regist #password').val();
+            if ($pass_value !== value) {
+                return '两次输入密码不一致';
+            }
+        }
+    })
+    // console.log($('.regist .layui-form'));
+    $('.regist .layui-form').on('submit', function (e) {
+        console.log(1);
+        e.preventDefault();
         var $username = $('.regist #name2').val();
         var $password = $('.regist #password').val();
         $.ajax({
@@ -23,7 +35,7 @@ $(function () {
                 password: $password
             },
             success: function (data) {
-                // console.log(data);
+                console.log(data);
                 if (data.status === 1) {
                     window.layer.msg(data.message);
                 } else {
@@ -33,27 +45,21 @@ $(function () {
             }
         })
     })
+    // $('#zhuce').click(function () {
+
+    // })
 })
 
 
-//验证输入框以及ajax的发送
-window.layui.form.verify({
-    password: [/^[\S]{6,12}$/, '密码必须在6到8位数字'],
-    repass: function (value) {
-        var $pass_value = $('.regist #password').val();
-        if ($pass_value !== value) {
-            return '两次输入密码不一致';
-        }
-    }
-})
+
 
 
 
 
 //登录ajax的发送
 $(function () {
-    $('.login button').click(function () {
-        console.log(1);
+    $('.login button').click(function (e) {
+        e.preventDefault();
         var $name = $('#name').val();
         var $pwd = $('#pwd').val();
         $.ajax({
@@ -68,8 +74,10 @@ $(function () {
                 if (data.status === 0) {
                     window.localStorage.setItem('token', data.token);
                     window.location.href = '../index.html';
+                } else {
+                    window.layer.msg(data.message);
                 }
-                console.log(data);
+
             }
         })
     })
