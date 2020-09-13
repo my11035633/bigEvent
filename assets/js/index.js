@@ -18,7 +18,8 @@ $(function () {
                         $('#welcome2').text('欢迎' + value2);
                     } else {
                         $('.text-avatar').hide();
-                        $('.layui-nav-img').attr('src', res.data.user_pic).css('display', 'block');
+                        $('#welcome2').text('欢迎' + value2);
+                        $('.layui-nav-img').attr('src', res.data.user_pic).show();
                     }
                 }
 

@@ -29,8 +29,4 @@ $(function () {
             }
         })
     })
-
-    // $('.layui-card #repass').click(function (e) {
-
-    // })
 })

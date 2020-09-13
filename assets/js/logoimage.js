@@ -16,6 +16,7 @@
 
   $(function () {
       $('#chuan').click(function () {
+          console.log(2);
           $('input[type = file]').click();
       })
 
@@ -27,11 +28,30 @@
               .cropper('destroy') // 销毁旧的裁剪区域
               .attr('src', newImgURL) // 重新设置图片路径
               .cropper(options) // 重新初始化裁剪区域
-          var dataURL = $image
-              .cropper('getCroppedCanvas', { // 创建一个 Canvas 画布
-                  width: 100,
-                  height: 100
+
+
+          $('#sure').click(function () {
+              console.log(1);
+              var dataURL = $image
+                  .cropper('getCroppedCanvas', { // 创建一个 Canvas 画布
+                      width: 100,
+                      height: 100
+                  })
+                  .toDataURL('image/png') // 将 Canvas 画布上的内容，转化为 base64 格式的字符串
+              console.log(dataURL);
+              $.ajax({
+                  type: 'POST',
+                  url: '/my/update/avatar',
+                  data: {
+                      avatar: dataURL
+                  },
+                  success: function (res) {
+                      console.log(res);
+                      if (res.status === 0) {
+                          window.parent.fa();
+                      }
+                  }
               })
-              .toDataURL('image/png') // 将 Canvas 画布上的内容，转化为 base64 格式的字符串
+          })
       })
   })
