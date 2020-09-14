@@ -51,17 +51,8 @@
      //这里是发布按钮提交
      $('#form-pub').on('submit', function (e) {
          e.preventDefault();
-         var $title = $('#title').val();
-         var $id = $('#pub_cate').val();
-         //这里获取富文本内容
-         //这里获取图片的二进制
-         //  $.ajax({
-         //      title: $title,
-         //      cate_id: $id,
-         //      content: '',
-         //      cover_img: '',
-         //      state: state
-         //  })
+         var formData = new FormData($('#form-pub')[0]);
+         formData.append('state', state);
      })
 
 
