@@ -57,13 +57,14 @@ $(function () {
 
     //编辑按钮
     //注意： 编辑按钮动态创建的，不具备动态绑定事件
+    var index;
     $('body').on('click', '#bianji', function (e) {
         e.preventDefault();
         var $id = $(this).attr('data-id');
         // console.log($id);
         var strHtml = $('#edit').html();
         // console.log(strHtml);
-        var index = window.layui.layer.open({
+        index = window.layui.layer.open({
             type: 1,
             area: ['500px', '250px'],
             title: '修改文章分类',
@@ -83,32 +84,31 @@ $(function () {
                 }
             }
         })
+    })
+    //确认修改提交到后台发送ajax
+    $('body').on('submit', '#editForm', function (e) {
+        e.preventDefault();
+        // console.log(1);
+        var $id = $('#value0').val();
+        var $name = $('#value1').val();
+        var $alias = $('#value2').val();
+        // console.log($id);
 
-        //确认修改提交到后台发送ajax
-        $('body').on('submit', '#editForm', function (e) {
-            e.preventDefault();
-            // console.log(1);
-            var $id = $('#value0').val();
-            var $name = $('#value1').val();
-            var $alias = $('#value2').val();
-            console.log($id);
-
-            $.ajax({
-                type: 'post',
-                url: '/my/article/updatecate',
-                data: {
-                    Id: $id,
-                    name: $name,
-                    alias: $alias
-                },
-                success: function (res) {
-                    // console.log(res);
-                    if (res.status === 0) {
-                        initTable();
-                        layer.close(index);
-                    }
+        $.ajax({
+            type: 'post',
+            url: '/my/article/updatecate',
+            data: {
+                Id: $id,
+                name: $name,
+                alias: $alias
+            },
+            success: function (res) {
+                // console.log(res);
+                if (res.status === 0) {
+                    initTable();
+                    layer.close(index);
                 }
-            })
+            }
         })
     })
 

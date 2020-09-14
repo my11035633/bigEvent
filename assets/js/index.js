@@ -14,6 +14,7 @@ $(function () {
                     if (res.data.user_pic === null) {
                         // console.log(value);
                         $('.text-avatar').text(value).show();
+                        $('.layui-nav-img').hide();
                         // $('#welcome').text('欢迎' + value);
                         $('#welcome2').text('欢迎' + value2);
                     } else {
