@@ -17,7 +17,7 @@ $(function () {
             success: function (res) {
                 // console.log(res);
                 template.defaults.imports.formatDate = function (Date) {
-                    moment(Date).format('MMMM Do YYYY, h:mm:ss a');
+                    return moment(Date).format('LLL');
                 }
                 var strHtml = template('tpl-table', res);
                 console.log(res);
@@ -113,4 +113,16 @@ $(function () {
     })
 
 
+    //文章编辑按钮
+    $('body').on('click', '#edit_article', function () {
+        window.location.href = '../article/pubarticle.html';
+        var $id = $('#id').innerText;
+        var $title = $('#title').innerText;
+
+        $.ajax({
+            type: 'post',
+            url: '/my/article/edit',
+            data
+        })
+    })
 })

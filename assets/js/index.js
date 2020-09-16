@@ -29,6 +29,9 @@ $(function () {
     }
 
     window.fa = fa;
+    console.log(window);
+    console.log(document.getElementById('fm').formData);
+
 
 
 
